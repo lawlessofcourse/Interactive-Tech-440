@@ -1,6 +1,24 @@
+## Project 1 inspirtion and Notes
+http://www.tangibleinteraction.com/artworks/purity-ring-cocoons
+- I like the interaction of hitting an object and it lighting up
+- tangible interactions makes and sells lighting cubes that they like to use in their installations, mainly used in the paper mache light designs they create.
+
+
+Chris Kuroda - Phish's lighting designer - his history
+https://liveforlivemusic.com/media/video/phish-chris-kuroda-explains-makeitshine/
+
+Awesome performance interaction - DJ INTERACTIVE TABLE FOR PERFORMER
+https://www.youtube.com/watch?v=Ap0eP73xOrg&start_radio=1&list=RDAp0eP73xOrg
+https://www.youtube.com/watch?v=xdcEJFHId1I&index=2&list=RDAp0eP73xOrg
+
+Lighting design example and walkthrough  LIGHTING A STAGE
+https://www.youtube.com/watch?v=nTsRTJko5sU&t=510s
+
+THIS ONE IS AWESOME - Its more of an installation DEEP WEB
+https://www.youtube.com/watch?v=n2bf8L7G6WE
 ## PROJECT 1 IDEAS
 
-What do I want? - work on supercollider/Processing system, make it more interactive for the performer, evolving shapes overtime. Certain sounds make certain visuals, design supercollider section for guitar, design section for voice, etc. Is this interactive or reactive? Maybe guitarist has pedal and when pedal hits it changes the visual design as well as the guitar distortion. - For a DJ set Link midi controller buttons to que visuals and distortions.
+What do I want? - work on supercollider/Processing system, make it more interactive for the performer, evolving shapes overtime. Certain sounds make certain visuals, design supercollider section for guitar, design section for voice, etc. Is this interactive or reactive? Maybe guitarist has pedal and when pedal hits it changes the visual design as well as the guitar distortion. - For a DJ set Link midi controller buttons to que visuals and distortions. - Flow chart Process. start at supercollider processing, sound in through microphone, microphone against amp, sound from amp allows supercollider to send messages via osc to processing in turn creates images based on osc messages. Multiple microphones with different designs based on instrument input. Ex. Bass gets deep colors with soft visuals until distorted(with pedal or performers choice of distortion input, then visuals become hard with edges dancing to bassline. Electric guitar gets warmer colors as notes get higher, give it an electric feeling to visuals. Other inputs possible, I want to start simple with one or two then I would like to add drum visuals that keep the beat and feeling/vibe of the visuals and sound. At this point if we added distortion pedals for bass and guitar and made those distort the visuals as well we push closer to an interactive system rather than a reactive one, where the performer has a choice of hitting the pedal or not. IDEA: when pedal is hit visuals change, when pedal deactivates a new style of visuals apear for that instrument making the system/visuals more dynamic. SKETCH THIS IDEA ON PAPER WITH FLOW CHART AND INSERT IMAGE HERE.
 
 **Input:**
 Human -> Instrument -> Amp and/or Microphone -> SuperCollider
