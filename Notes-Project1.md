@@ -21,7 +21,7 @@ Copy notes from reading into this markdown page. Sketches due monday 1/28.
 
 ## Project 1 inspirtion and Notes
 http://www.tangibleinteraction.com/artworks/purity-ring-cocoons
-- Like the interaction of hitting an object and it lighting up
+- I like the interaction of hitting an object and it lighting up
 - tangible interactions makes and sells lighting cubes that they like to use in their installations, mainly used in the paper mache light designs they create.
 
 
@@ -44,4 +44,4 @@ What do I want? - work on supercollider/Processing system, make it more interact
 It would be cool to do a dance to music with on screen visuals or even project the dancers on screen as animatoins with either motion tracking or sensors, tell a visual story to the music playing through dance and visuals, performers have contoller on them to change the visuals as they perform/ certain body movements que visuals and distortions.
 
 
-Another idea is to use resolume, make a set of visuals linked with sounds and live mix the performance, with pedals for distortion. Resolume allows you to create clips and mix those clips, the clips can either have just audio, just video or both. The idea is to design visuals and audio that work and look nice together. Make about 20 of these and its up to the performer on how to present the material, they can tell a story visually or audiotorially, making a very dynamic performance that can be different every time. 
+Another idea is to use resolume, make a set of visuals linked with sounds and live mix the performance, with pedals for distortion. Resolume allows you to create clips and mix those clips, the clips can either have just audio, just video or both. The idea is to design visuals and audio that work and look nice together. Make about 20 of these and its up to the performer on how to present the material, they can tell a story visually or audiotorially, making a very dynamic performance that can be different every time.
