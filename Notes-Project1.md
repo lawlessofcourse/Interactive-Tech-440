@@ -39,7 +39,7 @@ THIS ONE IS AWESOME - Its more of an installation DEEP WEB
 https://www.youtube.com/watch?v=n2bf8L7G6WE
 ## PROJECT 1 IDEAS
 
-What do I want? - work on supercollider/Processing system, make it more interactive for the performer, evolving shapes overtime. Certain sounds make certain visuals, design supercollider section for guitar, design section for voice, etc. Is this interactive or reactive? Maybe guitarist has pedal and when pedal hits it changes the visual design as well as the guitar distortion. - For a DJ set Link midi controller buttons to que visuals and distortions.
+What do I want? - work on supercollider/Processing system, make it more interactive for the performer, evolving shapes overtime. Certain sounds make certain visuals, design supercollider section for guitar, design section for voice, etc. Is this interactive or reactive? Maybe guitarist has pedal and when pedal hits it changes the visual design as well as the guitar distortion. - For a DJ set Link midi controller buttons to que visuals and distortions. - Flow chart Process.
 
 It would be cool to do a dance to music with on screen visuals or even project the dancers on screen as animatoins with either motion tracking or sensors, tell a visual story to the music playing through dance and visuals, performers have contoller on them to change the visuals as they perform/ certain body movements que visuals and distortions.
 
