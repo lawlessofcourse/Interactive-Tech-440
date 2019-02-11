@@ -54,7 +54,7 @@ void draw(){
   //DRAW RAIN
   for (int i = 0; i < drops.length; i++) {
     drops[i].fall();
-    drops[i].show(redVar, greenVar, blueVar);
+    drops[i].show(redVar, greenVar, blueVar, 200);//ampFast*1000);
   }
   // IF STATEMENT TO DRAW A NEW CIRCLE EVERYTIME THERE IS AN ONSET
   //FOR LOOP is to draw the circles
@@ -63,44 +63,47 @@ void draw(){
     }
   for(int i = 0; i < onsetCounter; i ++){
     circles[i].move();
-    circles[i].show(100, 255, blueVar, 255);
+    circles[i].show(blueVar, blueVar, redVar, ampSlow*1000);
   }
   
-  //translate(width/2, height/2);
-  //for(int i = 0; i < 5000; i++){
-  // stroke(blueVar,greenVar,blueVar, random(200, 255));
-  //  strokeWeight(random( 5, 6));
-  //  //line(x1(t + i), y1(t + i), x2(t + i), y2(t + i) );
-  //   point(x1(t+ i), y1(t+ i));
-  //  //point(x2(t+ i), y2(t+ i));
-  //  }
-  //  t+= ampSlow*100;
-  //  r+=ampFast*20;
+  translate(width/2, height/2);
+  for(int i = 0; i < 5000; i++){
+   stroke(greenVar,redVar,blueVar, ampFast*250);
+    strokeWeight(random( 5, 15));
+    //line(x1(t + i), y1(t + i), x2(t + i), y2(t + i) );
+     point(x1(t+ i), y1(t+ i));
+     point(-x1(t+i), -y1(t+i));
+    //point(x2(t+ i), y2(t+ i));
+    }
+    t+= ampSlow*100;
+    r+=ampFast*20;
     //colalpha = random(150, 200 );
   //size of cicles in sine wave variable dependent upon mouse.
   //size = map(mouseX, 0, width, 5, 15);
   
 
   //Color changes due to note(needs work and needs a color scheme based upon instrument)
+  //I would like to make acolor algorithm that scales from one color to another based upon note.
+  //ex. if note is low blue if it goes higher scale to green then scale to red if it goes even higher.
   if(note<20){
     redVar = random(155, 200);
     greenVar = random(0, 50);
     blueVar = random(200, 256);
    //  ellipse(0, height/2, pos, pos);
  
-  } else if(note>20&&note<30){
+  } else if(note>20&&note<40){
     redVar = random(0,20);
     greenVar = random(50, 80);
     blueVar = random(220, 250);
-  }else if(note>30&&note<40){
+  }else if(note>40&&note<50){
     redVar = random(0, 10);
     greenVar = random(200, 230);
     blueVar = random(230, 255);
-  }else if(note>40&&note<50){
+  }else if(note>50&&note<60){
     redVar = random(0, 10);
     greenVar = random(200, 255);
     blueVar = random(10, 20);
-  }else if(note>50&&note<60){
+  }else if(note>60&&note<100){
     redVar = random(0, 10);
     greenVar = random(230, 255);
     blueVar = random(200, 240);

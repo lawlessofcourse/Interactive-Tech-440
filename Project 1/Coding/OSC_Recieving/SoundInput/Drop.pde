@@ -26,10 +26,10 @@ class Drop {
     }
   }
 
-  void show(float r, float g, float b) {
+  void show(float r, float g, float b, float a) {
     float thick = map(z, 0, 20, 1, 5);
     strokeWeight(thick);
-    stroke(r, g, b);
+    stroke(r, g, b, a);
     line(x, y, x, y+len);
   }
 }
