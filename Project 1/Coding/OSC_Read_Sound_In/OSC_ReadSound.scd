@@ -40,9 +40,9 @@ SynthDef(\micAnalysis, {
 	// hasFreq.poll(label: \freqConfidence);
 	Out.kr(~midiNum1, freq.cpsmidi);
 
-	tempo = BeatTrack.kr(FFT(LocalBuf(1024),micIn1));
-	tempo.poll;
-	Out.kr(~beatTrack, tempo);
+	//tempo = BeatTrack.kr(FFT(LocalBuf(1024),micIn1));
+	//tempo.poll;
+	//Out.kr(~beatTrack, tempo);
 
 
 

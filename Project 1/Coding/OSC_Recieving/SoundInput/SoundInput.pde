@@ -1,6 +1,12 @@
 //IMPORT OSCP5 FOR SUPERCOLLIDER ANALYSIS
 import netP5.*;
 import oscP5.*;
+import themidibus.*;
+
+MidiBus myBus;
+
+//controller change array
+float cc[] = new float[256];
 
 //DRAW VARIABLES
 Drop[] drops = new Drop[1000];
@@ -32,10 +38,15 @@ float red = ampSlow/255;
 
 void setup(){
   //background(20);
- // size(1920, 1080);
+ size(1080, 720);
   //change size to screen size when presenting
-  fullScreen();
+  //fullScreen();
   frameRate(60);
+  
+ //List available Midi devices
+  MidiBus.list();
+  //select the correct midi device
+  myBus = new MidiBus(this, 0, 1);
   
   //set osc ip and port
   oscP5 = new OscP5(this,7000);
@@ -45,8 +56,6 @@ void setup(){
   for(int i = 0; i < circles.length; i++){
     circles[i] = new Circle();
   }
- 
-  
 }
 
 void draw(){
@@ -54,7 +63,7 @@ void draw(){
   //DRAW RAIN
   for (int i = 0; i < drops.length; i++) {
     drops[i].fall();
-    drops[i].show(redVar, greenVar, blueVar, 200);//ampFast*1000);
+    drops[i].show(redVar, greenVar, blueVar, cc[78]*256);//ampFast*1000);
   }
   // IF STATEMENT TO DRAW A NEW CIRCLE EVERYTIME THERE IS AN ONSET
   //FOR LOOP is to draw the circles
@@ -63,20 +72,35 @@ void draw(){
     }
   for(int i = 0; i < onsetCounter; i ++){
     circles[i].move();
-    circles[i].show(blueVar, blueVar, redVar, ampSlow*1000);
+    circles[i].show(blueVar, blueVar, redVar, cc[77]*256);
   }
   
+ //DRAW ABSRTACT VISUALS
   translate(width/2, height/2);
-  for(int i = 0; i < 5000; i++){
-   stroke(greenVar,redVar,blueVar, ampFast*250);
-    strokeWeight(random( 5, 15));
-    //line(x1(t + i), y1(t + i), x2(t + i), y2(t + i) );
+   stroke(greenVar,redVar,blueVar, 255);
+   float y = map(ampFast, 0, 1, 1, 5);
+   float x = map(ampSlow, 0 , 1, 5, 15);
+   if(note<50&&ampFast>0)
+   {
+    strokeWeight(x);
+   }
+   else
+   {
+    strokeWeight(1);  
+   }
+  for(int i = 0; i < 5000; i++)
+  {
      point(x1(t+ i), y1(t+ i));
      point(-x1(t+i), -y1(t+i));
     //point(x2(t+ i), y2(t+ i));
     }
+  for(int i = 0; i <NUM_LINES; i++)
+  {
+    line(x3(t + i), y3(t + i), x2(t + i), y2(t + i) );
+  }
+    float ampMap = map(ampSlow, 0, 1, 0.5, 20);
     t+= ampSlow*100;
-    r+=ampFast*20;
+    r+= ampMap;
     //colalpha = random(150, 200 );
   //size of cicles in sine wave variable dependent upon mouse.
   //size = map(mouseX, 0, width, 5, 15);
@@ -90,20 +114,19 @@ void draw(){
     greenVar = random(0, 50);
     blueVar = random(200, 256);
    //  ellipse(0, height/2, pos, pos);
- 
-  } else if(note>20&&note<40){
+  }else if(note>20&&note<40){
     redVar = random(0,20);
     greenVar = random(50, 80);
     blueVar = random(220, 250);
-  }else if(note>40&&note<50){
+  }else if(note>40&&note<60){
     redVar = random(0, 10);
     greenVar = random(200, 230);
     blueVar = random(230, 255);
-  }else if(note>50&&note<60){
+  }else if(note>60&&note<80){
     redVar = random(0, 10);
     greenVar = random(200, 255);
     blueVar = random(10, 20);
-  }else if(note>60&&note<100){
+  }else if(note>80&&note<150){
     redVar = random(0, 10);
     greenVar = random(230, 255);
     blueVar = random(200, 240);
@@ -125,46 +148,36 @@ void draw(){
     //}
 }
 
-void drawCircles(){
-
-}
-//Maybe do IF statements to change design of work in process.
-
-//Static visuals that appear when certain note or amp hits?
-
-///////////////////////////////
-//MIC 1 INPUTS/DESIGN CONTROL//
-///////////////////////////////
+/////////////////////////////////////////
+//ABSTRACT VISUAL INPUTS/DESIGN CONTROL//
+/////////////////////////////////////////
 float x1(float t){
   
   // 1) return sin(sin(t/r) ) * 500   ;
-  return sin(sin(t/50)+r/20 )  * ((width/2)) ;
+  return sin(sin(t/(cc[13]*200))+r/20)  * (width/2);
   //return -sin(FREQUENCY) * AMPLITUDE + sin(FREQ) * AMP;
 }
 
 float y1(float t){
   // 1) return cos(t / 15) *(cos(t/20)*400);
-  return cos(cos(t /150)+r/20) *height/2;
+  return cos(cos(t /(cc[14]*200))+r/20) *height/2;
 }
 
 float x2(float t){
-  return sin(t / r) * width/2 ;
+  return sin(t / cc[13]*200) * width/2 ;
   //return -sin(FREQUENCY) * AMPLITUDE + sin(FREQ) * AMP;
 }
 
 float y2(float t){
-  return cos(t / 20) * width/2;
+  return cos(t / cc[14]*200) * height/2;
 }
 
-///////////////////////////////
-//MIC 2 INPUTS/DESIGN CONTROL//
-///////////////////////////////
 float x3(float t){
-  return cos(t / 20) * 500 + cos(t/12)*20;
+  return sin(t / cc[13]*200) + width/2;//cos(t/12)*20;
   //return -sin(FREQUENCY) * AMPLITUDE + sin(FREQ) * AMP;
 }
 float y3(float t){
-  return sin(t / floor(note2/10)) * (500 + ampSlow2*1000) + sin(t) * 2;
+  return cos(t / cc[14]*200) * sin(t) * 2;
 }
 float x4(float t){
   return sin(t/15)*(ampFast*1000)+ sin(t/20)* (100 + ampFast2*2000);
@@ -213,4 +226,12 @@ void oscEvent(OscMessage theOscMessage) {
     //println(theOscMessage.addrPattern());
     note2 = (theOscMessage.get(0).floatValue());
   }
+}
+
+//sends messages when a controllers value is changed
+void controllerChange(int channel, int number, int value)
+{
+  println(number);
+  println(value);
+  cc[number] = map(value, 0 , 127, 0, 1);
 }

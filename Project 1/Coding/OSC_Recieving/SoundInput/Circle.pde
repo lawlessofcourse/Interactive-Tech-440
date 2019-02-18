@@ -1,4 +1,5 @@
-class Circle{
+class Circle
+{
   float x;
   float y;
   int pos;
@@ -9,11 +10,13 @@ class Circle{
     pos = 0;
     weight = 1;
   }
-void move(){
+void move()
+{
   pos += 10+(500*ampSlow);
   //pos = pos % width;
 }
-void show(float r, float g, float b, float a){
+void show(float r, float g, float b, float a)
+{
   noFill();
   stroke(r,g,b,a);
   if(weight >=1 && weight < 6){
