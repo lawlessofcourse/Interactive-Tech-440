@@ -5,7 +5,7 @@ PVector previous;
 
 void setup() {
   fullScreen();
-  int n = 5;
+  int n = 4;
   points = new PVector[n];
 
   for (int i = 0; i < n; i++) {
@@ -36,8 +36,8 @@ void draw() {
   }
 
   for (int i = 0; i < 1000; i++) {
-    strokeWeight(1);
-    stroke(255);
+    strokeWeight(random(1,2));
+    stroke(random(100,255),random(0,255),random(0,255) );
     PVector next = points[floor(random(points.length))];
     if (next != previous) {
       current.x = lerp(current.x, next.x, percent);
