@@ -2,6 +2,7 @@ float xoff, yoff, zoff, inc, col;
 int rez, cols, rows, num;
 PVector[] vectors;
 ArrayList<Particle> particles;
+
 void setup() {
   size(700, 500);
   colorMode(HSB);

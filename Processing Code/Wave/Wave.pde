@@ -1,5 +1,5 @@
 float freq = 10;
-float amp = 500;
+float amp = 80;
 float w = 20;
 float h = 20;
  
