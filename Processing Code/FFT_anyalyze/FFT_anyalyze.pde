@@ -5,6 +5,7 @@ MidiBus myBus;
  
 Circle[] circles = new Circle[1000];
 Circle[] circles2 = new Circle[1000];
+
 int onsetCounter=0;
 FFT fft;
 AudioIn in;
@@ -13,6 +14,10 @@ float[] spectrum = new float[bands];
 float w;
 
 float cc[] = new float[256];
+float bc[] = new float[256];
+
+boolean toggle = false;
+int count;
 
 //WAVE VARIABLES
 float freq = 10;
@@ -40,9 +45,9 @@ ArrayList<Particle> particles_b;
 void setup() {
   size(1080, 720);
   //fullScreen();
- 
   colorMode(HSB);
-  myBus = new MidiBus(this, 2, 3);
+  MidiBus.list();
+  myBus = new MidiBus(this, 0, 3);
   // Create an Input stream which is routed into the Amplitude analyzer
   fft = new FFT(this, bands);
   in = new AudioIn(this, 0);
@@ -161,6 +166,8 @@ void draw() {
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
+
+if(toggle == true){
   pushMatrix();
   pushStyle();
   noStroke();
@@ -195,6 +202,7 @@ void draw() {
   }
   popStyle();
   popMatrix();
+}else{}
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   pushMatrix();
@@ -228,6 +236,7 @@ void mousePressed()
   background(255);
   init();
 }
+
 
 
 float x(float t) {
@@ -284,6 +293,16 @@ void noteOn(int channel, int pitch, int velocity) {
   println("Channel:"+channel);
   println("Pitch:"+pitch);
   println("Velocity:"+velocity);
+  bc[pitch] = map(velocity, 0, 127, 0, 1);
+  
+  count = count +1;
+  count = count%2;
+  println(count);
+  if(count == 1&&pitch == 41){
+    toggle = true;
+  }else if(count == 0){
+    toggle = false;
+  }
 }
 
 void noteOff(int channel, int pitch, int velocity) {
@@ -294,4 +313,6 @@ void noteOff(int channel, int pitch, int velocity) {
   println("Channel:"+channel);
   println("Pitch:"+pitch);
   println("Velocity:"+velocity);
+
+  
 }

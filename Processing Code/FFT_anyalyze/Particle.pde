@@ -46,7 +46,7 @@ class Particle {
   }
   void show() {
     stroke(cc[49]*360, 255, 255, 20);
-    strokeWeight(2);
+    strokeWeight(random(1, 2)); 
     line(pos.x, pos.y, prev.x, prev.y);
     copy();
   }
