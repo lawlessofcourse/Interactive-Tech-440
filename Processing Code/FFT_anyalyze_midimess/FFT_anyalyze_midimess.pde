@@ -17,8 +17,11 @@ float cc[] = new float[256];
 float bc[] = new float[256];
 
 boolean toggle = false;
+boolean toggle2 = false;
+boolean toggle3 = false;
+boolean toggle4 = false;
 int count;
-
+int value; 
 //WAVE VARIABLES
 float freq = 10;
 float amp = 80;
@@ -81,40 +84,12 @@ void init() {
 void draw() { 
   background(cc[49]*360, cc[50]*360, cc[51]*360 );
 
-  yoff = 0;
-  for (int y=0; y<rows; y++) {
-    xoff = 0;
-    for (int x=0; x<cols; x++) {
-      float angle = noise(xoff, yoff, zoff) * TWO_PI * 5;
-      PVector v = PVector.fromAngle(angle);
-      v.setMag(1);
-      vectors[x + y * cols] = v;
-      xoff += inc;
-    }
-    yoff += inc;
-  }
-  zoff += 0.005;
-  if (col < 255)col += 0.1;
-  else col = 0;
-  for (Particle p : particles)p.run();
+
 
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   //DRAW CIRCLES
-  float xx = random(-width, width);
-  float yy = random(-height, height);
-  for (int i =0; i<onsetCounter; i++)
-  {
-    pushMatrix();
-    circles[i].move(200);
-    circles[i].show(xx, yy, i, 255, 255, 50);
-    popMatrix();
-    pushMatrix();
-    translate(width/2, height/2);
-    circles2[i].move(2000);
-    circles2[i].show(0, 0, i, cc[50]*360, 255, cc[29]*360);
-    popMatrix();
-  }
+
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   //DRAW FFT SPECTRUM HALF CIRCLE AND BAR SCALE
@@ -144,20 +119,20 @@ void draw() {
   //TAKE AVERAGE OF FIRST 4 BANDS//MAKE THIS INTO A FUNCTION THAT RETURNS VALUE?
 
   for (int i = 0; i < 3; i++) {
-    average1 += spectrum[i]*100;
+    average1 += spectrum[i];
   }
   average1 = average1/3;
-
+  //println(average1);
   for (int i = 0; i <5; i++) {
-    average2 += spectrum[i]*100;
+    average2 += spectrum[i];
   }
   average2 = average2/5;
-  //println(average2);
+  println(average2);
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   //IF AVERAGE IS ABOVE TWO DRAW NEW CIRCLE
-  if (average1>2) {
-    if (onsetCounter<25) {
+  if (average2>0.09) {
+    if (onsetCounter<width/2) {
       onsetCounter=onsetCounter+1;
     } else {
       onsetCounter=0;
@@ -170,39 +145,106 @@ void draw() {
   ////////////////////////////////////////////////////////////////////////////////////////
 
   if (toggle == true) {
-  } else {
+    pushMatrix();
+    pushStyle();
+    noStroke();
+    colorMode(RGB);
+    translate(0, height/2);
+    amp = average2*100;
+    fill(0, 0, 50, 40);
+    //rect(0, 0, width, height);
+
+    for (int i = 0; i < width; i++) {
+      // Middle blue
+      //fill(220, 255, 255, 0);
+      //rect(i*20, sin((frameCount+i*3)/freq)*(amp*1), w2, h, 0);
+
+      for (int x = 1; x < 16; x++) {
+        // Top blue
+        fill(230-(x*40), 255, 255, cc[77]*255-(x*32));
+        rect(i*20, ((x*20)) + sin((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w2*(1-(x*0.075)), h*(1-(x*0.075)), 75-(x*3.5));
+
+        // Bottom blue
+        fill(230-(x*40), 255, 255, cc[77]*255-(x*32));
+        rect(i*20, ((x*20)) + sin((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w2*(1-(x*0.075)), h*(1-(x*0.075)), 75-(x*3.5));
+
+        // Top purple
+        fill(255, 230-(x*20), 255, cc[77]*15);
+        rect(i*20+10, ((x*20)) + cos((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w2*(1-(x*0.125)), h*(1-(x*0.125)), 75-(x*3.5));
+
+        // Bottom purple
+        fill(255, 200-(x*20), 255, cc[77]*15);
+        rect(i*20+10, ((x*20)) + cos((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w2*(1-(x*0.125)), h*(1-(x*0.125)), 75-(x*3.5));
+      }
+    }
+    popStyle();
+    popMatrix();
+  } if (toggle2 == true) {
+    float xx = random(-width, width);
+    float yy = random(-height, height);
+    for (int i =0; i<onsetCounter; i++)
+    {
+      pushMatrix();
+      circles[i].move(200);
+      circles[i].show(xx, yy, i, 255, 255, 50);
+      popMatrix();
+      pushMatrix();
+      translate(width/2, height/2);
+      circles2[i].move(2000);
+      circles2[i].show(0, 0, i, cc[50]*360, 255, cc[29]*360);
+      popMatrix();
+    }
+  } if (toggle3 == true) {
+    pushMatrix();
+    pushStyle();
+    angle2 += cc[14]/100;
+    //stroke(25, 150, 190, cc[78]*256);
+
+    translate(width/2, height/2);
+    //float grow = map(average2, 0 ,1, 1.0, 1.2);
+    scale(cc[13]*4);
+    rotate(TWO_PI*angle2);
+    for (int i=1; i < NUM_LINES; i++) {
+      stroke(cc[49]*360, cc[79]*360, cc[80]*360);
+      strokeWeight(3);
+      point(x(t+i), y(t+i));
+      point(x2(t+i), y2(t+i));
+      strokeWeight(1);
+      line(x(t+i), y(t+i), x2(t+i), y2(t+i));
+    }
+    t += 0.005;
+    if (increment)    v1+=fator;
+
+    popStyle();
+    popMatrix();
+  } if (toggle4 == true) {
+    yoff = 0;
+    for (int y=0; y<rows; y++) {
+      xoff = 0;
+      for (int x=0; x<cols; x++) {
+        float angle = noise(xoff, yoff, zoff) * TWO_PI * 5;
+        PVector v = PVector.fromAngle(angle);
+        v.setMag(1);
+        vectors[x + y * cols] = v;
+        xoff += inc;
+      }
+      yoff += inc;
+    }
+    zoff += 0.005;
+    if (col < 255)col += 0.1;
+    else col = 0;
+    for (Particle p : particles)p.run();
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
-  pushMatrix();
-  pushStyle();
-  angle2 += cc[14]/100;
-  //stroke(25, 150, 190, cc[78]*256);
 
-  translate(width/2, height/2);
-  //float grow = map(average2, 0 ,1, 1.0, 1.2);
-  scale(cc[13]*4);
-  rotate(TWO_PI*angle2);
-  for (int i=1; i < NUM_LINES; i++) {
-    stroke(cc[49]*360, cc[79]*360, cc[80]*360);
-    strokeWeight(3);
-    point(x(t+i), y(t+i));
-    point(x2(t+i), y2(t+i));
-    strokeWeight(1);
-    line(x(t+i), y(t+i), x2(t+i), y2(t+i));
-  }
-  t += 0.005;
-  if (increment)    v1+=fator;
-
-  popStyle();
-  popMatrix();
   noise();
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
 }
 void mousePressed()
 {
-  background(255);
+  //background(255);
   init();
 }
 
@@ -253,43 +295,8 @@ void controllerChange(int channel, int number, int value)
   println(number);
   println(value);
   cc[number] = map(value, 0, 127, 0, 1);
+
   
-  if (cc[number] == 41) {
-    pushMatrix();
-    pushStyle();
-    noStroke();
-    colorMode(RGB);
-    translate(0, height/2);
-    amp = average2*100;
-    fill(0, 0, 50, 40);
-    //rect(0, 0, width, height);
-
-    for (int i = 0; i < width; i++) {
-      // Middle blue
-      //fill(220, 255, 255, 0);
-      //rect(i*20, sin((frameCount+i*3)/freq)*(amp*1), w2, h, 0);
-
-      for (int x = 1; x < 16; x++) {
-        // Top blue
-        fill(230-(x*40), 255, 255, cc[77]*255-(x*32));
-        rect(i*20, ((x*20)) + sin((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w2*(1-(x*0.075)), h*(1-(x*0.075)), 75-(x*3.5));
-
-        // Bottom blue
-        fill(230-(x*40), 255, 255, cc[77]*255-(x*32));
-        rect(i*20, ((x*20)) + sin((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w2*(1-(x*0.075)), h*(1-(x*0.075)), 75-(x*3.5));
-
-        // Top purple
-        fill(255, 230-(x*20), 255, cc[77]*15);
-        rect(i*20+10, ((x*20)) + cos((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w2*(1-(x*0.125)), h*(1-(x*0.125)), 75-(x*3.5));
-
-        // Bottom purple
-        fill(255, 200-(x*20), 255, cc[77]*15);
-        rect(i*20+10, ((x*20)) + cos((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w2*(1-(x*0.125)), h*(1-(x*0.125)), 75-(x*3.5));
-      }
-    }
-    popStyle();
-    popMatrix();
-  }
 }
 void noteOn(int channel, int pitch, int velocity) {
   // Receive a noteOn
@@ -304,10 +311,27 @@ void noteOn(int channel, int pitch, int velocity) {
   count = count +1;
   count = count%2;
   println(count);
-  if (count == 1&&pitch == 41) {
+  if (pitch == 41) {
     toggle = true;
-  } else if (count == 0) {
+  } else if (pitch == 42) {
+    toggle2 = true;
+  } else if (pitch == 43) {
+    toggle3 = true;
+  } else if( pitch == 44){
+    toggle4 = true;
+  }else if(pitch == 73){
     toggle = false;
+  }else if(pitch == 74){
+    toggle2 = false;
+  }else if(pitch == 75){
+    toggle3 = false;
+  }else if(pitch == 76){
+    toggle4 = false;
+  }else{
+    toggle = false;
+    toggle2 = false;
+    toggle3 = false;
+    toggle4 = false;
   }
 }
 
