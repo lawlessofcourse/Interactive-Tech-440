@@ -50,7 +50,7 @@ void setup() {
   //fullScreen();
   colorMode(HSB);
   MidiBus.list();
-  myBus = new MidiBus(this, 2, 3);
+  myBus = new MidiBus(this, 0, 3);
   // Create an Input stream which is routed into the Amplitude analyzer
   fft = new FFT(this, bands);
   in = new AudioIn(this, 0);
