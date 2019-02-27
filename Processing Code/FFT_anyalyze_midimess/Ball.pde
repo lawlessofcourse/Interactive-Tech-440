@@ -10,7 +10,7 @@ class Ball {
   Ball(float tempX, float tempY, float tempW) {
     x = tempX;
     y = tempY;
-    w = tempW;
+    w = 0;
     speed = 0;
     gravity = 0.1;
   }
@@ -33,18 +33,19 @@ class Ball {
   boolean finished() {
     // Balls fade out
     //life--;
-    if (w >width*2) {
+    if (w >width/2) {
       return true;
     } else {
       return false;
     }
   }
   
-  void display() {
+  void display(float h, float s, float b) {
     // Display the circle
     noFill();
-    stroke(255);
-    //stroke(0,life);
+    
+    
+    stroke(h,s,b);
     ellipse(x,y,w,w);
   }
 }  
