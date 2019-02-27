@@ -3,8 +3,7 @@ import themidibus.*;
 
 MidiBus myBus;
 
-Circle[] circles = new Circle[1000];
-Circle[] circles2 = new Circle[1000];
+
 
 int onsetCounter=0;
 FFT fft;
@@ -21,7 +20,7 @@ boolean toggle2 = false;
 boolean toggle3 = false;
 boolean toggle4 = false;
 int count;
-int value; 
+int value;
 //WAVE VARIABLES
 float freq = 10;
 float amp = 80;
@@ -38,13 +37,17 @@ boolean increment = false;
 float fator =0.00001;
 //fft averages
 float average1 = 0;
-float average2 = 0;  
+float average2 = 0;
 //FLOWFIELD VARIABLES
 float xoff, yoff, zoff, inc, col;
 int rez, cols, rows, num;
 PVector[] vectors;
 ArrayList<Particle> particles;
 ArrayList<Particle> particles_b;
+//EXPANDING CIRCLE VARS
+ArrayList<Ball> balls;
+int ballWidth = 48;
+
 void setup() {
   size(1080, 720);
   //fullScreen();
@@ -60,13 +63,17 @@ void setup() {
 
   // patch the AudioIn
   fft.input(in);
-  for (int i = 0; i < circles.length; i++) {
-    circles[i] = new Circle();
-    circles2[i] = new Circle();
-  }
+
   init();
-}      
-void init() {
+  // Create an empty ArrayList (will store Ball objects)
+  balls = new ArrayList<Ball>();
+
+  // Start by adding one element
+  balls.add(new Ball(width/2, height/2, ballWidth));
+}
+
+void init()
+{
   background(0);
   rez = 10;
   inc = 0.1;
@@ -81,39 +88,34 @@ void init() {
     particles.add(new Particle());
   particles_b.add(new Particle());
 }
-void draw() { 
+
+void draw()
+{
   background(cc[49]*360, cc[50]*360, cc[51]*360 );
-
-
-
-  ////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////
-  //DRAW CIRCLES
-
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   //DRAW FFT SPECTRUM HALF CIRCLE AND BAR SCALE
 
   fft.analyze(spectrum);
-  for (int i = 0; i < bands; i++) {
-    pushMatrix();
-    translate(width/2, height/2);
-    // The result of the FFT is normalized
-    // draw the line for frequency band i scaling it up by 5 to get more amplitude.
-    float angle = map(i, 0, spectrum.length, 0, -PI);
-    float r = map(spectrum[i], 0, 1, 100, width);
-    float vert = map(spectrum[i], 0, 1, 1, height*4);
-    float x = r*cos(angle);
-    float y = r*sin(angle);
-    stroke(i, 255, 255);
-    //line(0, 0, x, y);
-    popMatrix();
+  //for (int i = 0; i < bands; i++) {
+  //  pushMatrix();
+  //  //translate(width/2, height/2);
+  //  // The result of the FFT is normalized
+  //  // draw the line for frequency band i scaling it up by 5 to get more amplitude.
+  //  float angle = map(i, 0, spectrum.length, 0, -PI);
+  //  float r = map(spectrum[i], 0, 1, 100, width);
+  //  float vert = map(spectrum[i], 0, 1, 1, height*4);
+  //  float x = r*cos(angle);
+  //  float y = r*sin(angle);
+  //  stroke(i, 255, 255);
+  //  //line(0, 0, x, y);
+  //  popMatrix();
 
-    fill(i, 255, 255);
-    //rect( i*w, height-vert, w, vert );
-    //rect( i*w, y, w, height-y );
-    //println(average(spectrum[i], 3));
-  }
+  //  fill(i, 255, 255);
+  //  //rect( i*w, height-vert, w, vert );
+  //  //rect( i*w, y, w, height-y );
+  //  //println(average(spectrum[i], 3));
+  //}
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   //TAKE AVERAGE OF FIRST 4 BANDS//MAKE THIS INTO A FUNCTION THAT RETURNS VALUE?
@@ -127,23 +129,17 @@ void draw() {
     average2 += spectrum[i];
   }
   average2 = average2/5;
-  println(average2);
-  ////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////
+  //println(average2);
   //IF AVERAGE IS ABOVE TWO DRAW NEW CIRCLE
-  if (average2>0.09) {
-    if (onsetCounter<width/2) {
-      onsetCounter=onsetCounter+1;
-    } else {
-      onsetCounter=0;
-    }
+  if (average1>2) {
+    balls.add(new Ball(random(-width, width), random(-height, height), ballWidth));
     v1 = random(0.4)+0.2;
   } else {
     increment = false;
   }
-  ////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+//TOGGLE STATEMENTS FOR MIDI CONTROL
   if (toggle == true) {
     pushMatrix();
     pushStyle();
@@ -179,22 +175,23 @@ void draw() {
     }
     popStyle();
     popMatrix();
-  } if (toggle2 == true) {
-    float xx = random(-width, width);
-    float yy = random(-height, height);
-    for (int i =0; i<onsetCounter; i++)
-    {
-      pushMatrix();
-      circles[i].move(200);
-      circles[i].show(xx, yy, i, 255, 255, 50);
-      popMatrix();
-      pushMatrix();
-      translate(width/2, height/2);
-      circles2[i].move(2000);
-      circles2[i].show(0, 0, i, cc[50]*360, 255, cc[29]*360);
-      popMatrix();
+  }
+  if (toggle2 == true)
+  {
+    for (int i = balls.size()-1; i >= 0; i--) {
+      // An ArrayList doesn't know what it is storing so we have to cast the object coming out
+      Ball ball = balls.get(i);
+      ball.move();
+      ball.display();
+      if (ball.finished()) {
+        // Items can be deleted with remove()
+        balls.remove(i);
+      }
     }
-  } if (toggle3 == true) {
+  }
+
+  if (toggle3 == true)
+  {
     pushMatrix();
     pushStyle();
     angle2 += cc[14]/100;
@@ -217,7 +214,8 @@ void draw() {
 
     popStyle();
     popMatrix();
-  } if (toggle4 == true) {
+  }
+  if (toggle4 == true) {
     yoff = 0;
     for (int y=0; y<rows; y++) {
       xoff = 0;
@@ -239,6 +237,9 @@ void draw() {
   ////////////////////////////////////////////////////////////////////////////////////////
 
   noise();
+  ////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
+
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
 }
@@ -266,16 +267,6 @@ float y2(float t) {
   return cos(t/10)*10 + sin(t/v1)*100;
 }
 
-
-static double average(float a[], int n) {
-
-  float sum = 0;
-  for (int f = 0; f < n; f++)
-
-    sum += a[f];
-  //println(sum/n);
-  return sum/n;
-}
 void noise() {
   noStroke();
   strokeWeight(1);
@@ -290,13 +281,12 @@ void noise() {
     rect(random(0, width), random(0, height), 2, 2);
   }
 }
+
 void controllerChange(int channel, int number, int value)
 {
   println(number);
   println(value);
   cc[number] = map(value, 0, 127, 0, 1);
-
-  
 }
 void noteOn(int channel, int pitch, int velocity) {
   // Receive a noteOn
@@ -317,17 +307,17 @@ void noteOn(int channel, int pitch, int velocity) {
     toggle2 = true;
   } else if (pitch == 43) {
     toggle3 = true;
-  } else if( pitch == 44){
+  } else if ( pitch == 44) {
     toggle4 = true;
-  }else if(pitch == 73){
+  } else if (pitch == 73) {
     toggle = false;
-  }else if(pitch == 74){
+  } else if (pitch == 74) {
     toggle2 = false;
-  }else if(pitch == 75){
+  } else if (pitch == 75) {
     toggle3 = false;
-  }else if(pitch == 76){
+  } else if (pitch == 76) {
     toggle4 = false;
-  }else{
+  } else {
     toggle = false;
     toggle2 = false;
     toggle3 = false;
