@@ -17,6 +17,7 @@ boolean toggle = false;
 boolean toggle2 = false;
 boolean toggle3 = false;
 boolean toggle4 = false;
+boolean toggle5 = false;
 int count;
 int value;
 //WAVE VARIABLES
@@ -36,6 +37,7 @@ float fator =0.00001;
 //fft averages
 float average1 = 0;
 float average2 = 0;
+float average3 = 0;
 //FLOWFIELD VARIABLES
 float xoff, yoff, zoff, inc, col;
 int rez, cols, rows, num;
@@ -45,7 +47,8 @@ ArrayList<Particle> particles_b;
 //EXPANDING CIRCLE VARS
 ArrayList<Ball> balls;
 int ballWidth = 48;
-
+//EXPANDING TRI VARS
+ArrayList<Tri> triangles;
 void setup() {
   size(1920, 1080);
   //fullScreen();
@@ -65,9 +68,12 @@ void setup() {
   init();
   // Create an empty ArrayList (will store Ball objects)
   balls = new ArrayList<Ball>();
-  //circles = new ArrayList<Ball>()
   // Start by adding one element
-  balls.add(new Ball(width/2, height/2, ballWidth));
+  balls.add(new Ball(width/2, height/2));
+  // Create an empty ArrayList (will store Tri objects)
+  triangles = new ArrayList<Tri>();
+  // Start by adding one element
+  triangles.add(new Tri(width/2, height/2));
 }
 
 void init()
@@ -127,15 +133,27 @@ void draw()
     average2 += spectrum[i];
   }
   average2 = average2/5;
-  println(average2);
+  
+  for (int i = 6; i <9; i++) {
+    average3 += spectrum[i];
+    //println(i);
+  }
+  average3 = average3/3;
   //IF AVERAGE IS ABOVE TWO DRAW NEW CIRCLE
-  if (average2>.004) {
-    balls.add(new Ball(random(-width, width), random(-height, height), ballWidth));
-    balls.add(new Ball(width/2, height/2, ballWidth));
+  if (average2>.02) {
+    //balls.add(new Ball(random(-width, width), random(-height, height), ballWidth));
+    balls.add(new Ball(width/2, height/2));
     v1 = random(0.4)+0.2;
   } else {
     increment = false;
   }
+  float avg = (spectrum[15]+spectrum[16])/2;
+  if (avg > 0.004) {
+    println(avg);
+    triangles.add(new Tri(width/2, height/2));
+  } else {
+  }
+
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   //TOGGLE STATEMENTS FOR MIDI CONTROL
@@ -180,7 +198,7 @@ void draw()
     for (int i = balls.size()-1; i >= 0; i--) {
       // An ArrayList doesn't know what it is storing so we have to cast the object coming out
       Ball ball = balls.get(i);
-      ball.move();
+      ball.move(10);
       ball.display(i, 200, 255);
       if (ball.finished()) {
         // Items can be deleted with remove()
@@ -231,6 +249,19 @@ void draw()
     if (col < 255)col += 0.1;
     else col = 0;
     for (Particle p : particles)p.run();
+  }
+  if (toggle5 == true)
+  {
+    for (int i = triangles.size()-1; i >= 0; i--) { 
+      // An ArrayList doesn't know what it is storing so we have to cast the object coming out
+      Tri newTri = triangles.get(i);
+      newTri.move(5);
+      newTri.display();
+      if (newTri.finished()) {
+        // Items can be deleted with remove()
+        triangles.remove(i);
+      }
+    }
   }
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -308,6 +339,8 @@ void noteOn(int channel, int pitch, int velocity) {
     toggle3 = true;
   } else if ( pitch == 44) {
     toggle4 = true;
+  } else if (pitch == 57) {
+    toggle5 = true;
   } else if (pitch == 73) {
     toggle = false;
   } else if (pitch == 74) {
@@ -316,11 +349,14 @@ void noteOn(int channel, int pitch, int velocity) {
     toggle3 = false;
   } else if (pitch == 76) {
     toggle4 = false;
+  } else if (pitch == 89) {
+    toggle5 = false;
   } else {
     toggle = false;
     toggle2 = false;
     toggle3 = false;
     toggle4 = false;
+    toggle5 = false;
   }
 }
 

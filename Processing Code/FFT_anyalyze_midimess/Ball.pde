@@ -7,7 +7,7 @@ class Ball {
   float w;
   float life = 255;
   
-  Ball(float tempX, float tempY, float tempW) {
+  Ball(float tempX, float tempY) {
     x = tempX;
     y = tempY;
     w = 0;
@@ -15,7 +15,7 @@ class Ball {
     gravity = 0.1;
   }
   
-    void move() {
+    void move(float speed) {
     // Add gravity to speed
     //speed = speed + gravity;
     // Add speed to y location
@@ -27,13 +27,13 @@ class Ball {
      //speed = speed * -0.8;
       //y = height;
     //}
-    w += 2;
+    w += speed;
   }
   
   boolean finished() {
     // Balls fade out
     //life--;
-    if (w >width/2) {
+    if (w >width) {
       return true;
     } else {
       return false;
