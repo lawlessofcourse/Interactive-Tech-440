@@ -7,8 +7,7 @@ Jack Lawless
 * organize a digital notebook and possibly pay for bear app or just use github with md documents such as this one
 
 ### Notes:
-
-* **Interactive System:** *"A System of two or more agents where every agent is capable of enacting changes in a ny other agent."*
+* **Interactive System:** *"A System of two or more agents where every agent is capable of enacting changes in any other agent."*
 *  **Performance:** *"Enacting something with the intention [of being consumed]."*
 * **Interactive Performance:**
 
@@ -16,8 +15,8 @@ put in reference for article read
 
 ## Week 2 / January 23rd 2019
 Find video about Music storytelling through art.
-come in monday with ideas for project, sketch ideas, inspiration.
-Copy notes from reading into this markdown page. Sketches due monday 1/28.
+come in Monday with ideas for project, sketch ideas, inspiration.
+Copy notes from reading into this markdown page. Sketches due Monday 1/28.
 
 ## Week 3 January 30th
 System: **Input -> Decision Making -> Output**
@@ -30,3 +29,7 @@ We also have a human agent in IPS(Interactive performance system)
 **Decision Making:**
 
 **Output:**
+
+Liveness: real time reaction
+
+Computer Agent: 

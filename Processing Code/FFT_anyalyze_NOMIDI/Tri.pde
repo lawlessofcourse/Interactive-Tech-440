@@ -35,21 +35,20 @@ class Tri {
   boolean finished() {
     // Balls fade out
     life-=l;
-    if ((abs(x2)+abs(x3)) > width/2) {
+    if ((abs(x2)+abs(x3)) > width) {
       return true;
     } else {
       return false;
     }
   }
 
-  void display(float weight) {
+  void display() {
     // Display the circle
     noFill();
-    strokeWeight(weight+2);
+    strokeWeight(weight_low);
     stroke(c, 360, 360, life);
 
     //stroke(0,life);
     triangle(x1, y1, x2, y2, x3, y3);
-    triangle(-x1, y1, -x2, y2, -x3, y3);
   }
 }  

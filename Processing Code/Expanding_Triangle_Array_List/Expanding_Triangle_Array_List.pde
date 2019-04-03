@@ -1,10 +1,18 @@
+import spout.*;
+Spout spout;
+
 ArrayList<Tri> triangles;
 
+String senderName;
 
 void setup() {
-  size(640, 360);
+  size(1920, 1080, P3D);
   noStroke();
-
+  textureMode(NORMAL);
+  spout =  new Spout(this);
+  senderName = "Spout Processing";
+  spout.createSender(senderName, width, height);
+  
   // Create an empty ArrayList (will store Ball objects)
   triangles = new ArrayList<Tri>();
 
@@ -29,6 +37,7 @@ void draw() {
       triangles.remove(i);
     }
   }
+  spout.sendTexture();
 }
 
 void mousePressed() {
