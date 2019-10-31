@@ -2,7 +2,7 @@
 
 ## Project Idea:
 2.5 D Side Scroller using abstract art Nic and I have developed over the years.
-Simple space shooter type game but you move from left to right, possible for other levels to facing different directions. Shooter: you have to fight off waves of abstract enemies that can hurt you. Goal is to survive. After certain number of waves you get upgrades/change shape and bullet shape/type. Enemies will become more difficult as the waves progress. 
+Simple space shooter type game, possible for other levels to facing different directions. Shooter: you have to fight off waves of abstract enemies that can hurt you. Goal is to survive. After certain number of waves you get upgrades/change shape and bullet shape/type. Enemies will become more difficult as the waves progress. 
 
 Design: I plan on using a combination of softwares to develop animations and characters for the game. I have a plugin for After Effects called the Trapcode Suite. In the suite is a particle system that is really easy to design and render out. This has audio reactive options that I might explore. But this will be used for explosions, bullets, fog, and other abstract designs that will upgrade the character. I have a few ideas for designs/upgrades - Fire upgrade, Plasma upgrade, water upgrade, etc. These are looks I can create using this plugin.
 
@@ -32,12 +32,14 @@ After intial code/game is ready - create upgrades/design looks in After Effects 
 
 * Menu: Start, High Score: keep track of wave progression and enemies killed.
 * Game Over/Player Lives: Player gets 3 Lives.
+* Pause Game - Exit - Restart
 
 ## Non-Functional Requirement
 * Abstract evolving/changing background  
 * JUMPER idea
 * Collectables - Earn extra/double xp for limited time. Collect parts for an ultimate upgrade.
 * Audio reaction. I'm not sure the capabilites of using audio reaction in the game but would be a cool idea to experiment with given the time. 
+* Ask user if they are ready before starting next wave
 
 ## Story
 * Currently don't have a story line for this game. It's basically and experimentation of abstract objects and their interaction.
