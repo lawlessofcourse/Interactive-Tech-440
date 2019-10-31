@@ -4,6 +4,8 @@
 2.5 D Side Scroller using abstract art Nic and I have developed over the years.
 Simple space shooter type game but you move from left to right, possible for other levels to facing different directions. Shooter: you have to fight off waves of abstract enemies that can hurt you. Goal is to survive. After certain number of waves you get upgrades/change shape and bullet shape/type. Enemies will become more difficult as the waves progress. 
 
+Design: I plan on using a combination of softwares to develop animations and characters for the game. I have a plugin for After Effects called the Trapcode Suite. In the suite is a particle system that is really easy to design and render out. This has audio reactive options that I might explore. But this will be used for explosions, bullets, fog, and other abstract designs that will upgrade the character. I have a few ideas for designs/upgrades - Fire upgrade, Plasma upgrade, water upgrade, etc. These are looks I can create using this plugin.
+
 -Build Upon Idea: The player has gravity with a ceiling and ground. When player jumps(hits spacebar) they invert their gravity and make the ceil the floor: player must jump from ceiling to floor and shoot during to eliminate enemy players. This should be an easy concept to apply to the project as the project will already be set up with a floor and ceiling. Call this idea the JUMPER.
 
 If possible I would like to explore audio reaction within game. Such as an overplaying song effecting in game elements and/or the sound of explosions in the game trigger audio reactive effects.
@@ -16,6 +18,10 @@ Most inspiration for this has been from my numerous animation/graphic design cla
 
 ## Timeline:
 Currently I'm working on a the Game Controller, Player Movement, and Shooting. Along with the coding we are currently working on collecting/creating 3D/2D assets to include in the game. I plan on using some assets I've already made in 3D animation class.
+
+Plan on creating assets as we go but the code/engine for the game is most important.
+
+After intial code/game is ready - create upgrades/design looks in After Effects using the Trapcode Suite. - main issue will be getting the designs to loop - the particle system is dynamic so it is ever evolving but there are features so you can set it in a loop. 
 
 ## Functional  
 * ENEMY AI: Enemies Come in waves moving in x direction, randomly moving in Y direction, and shooting in a straight line ahead where the player will be.
