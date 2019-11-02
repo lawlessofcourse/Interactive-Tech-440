@@ -1,0 +1,3 @@
+# Milestone 3 / Project Proposal
+
+Project has changed! Nic and I have decided to team up on this final project. His idea doesn't stem far from mine and I think his idea has a lot of room for variants of the game. We want to create a 2.5D shooter using abstract models from Maya and Cinema 4D. It would have a similar feel to Geometry Wars or Space Invaders. The game would be played from left to right as the enemies come at you from the right you have to defend and hold them off. Instead of progressing to a new level, the player progresses through waves of enemies. Background is an abstract changing design.
