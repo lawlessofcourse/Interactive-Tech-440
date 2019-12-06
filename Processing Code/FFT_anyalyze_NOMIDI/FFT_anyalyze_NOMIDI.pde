@@ -1,13 +1,12 @@
 import processing.sound.*;
-import spout.*;
-Spout spout;
+
 SoundFile file;
 
 String senderName;
 
 int onsetCounter=0;
 FFT fft;
-//AudioIn in;
+AudioIn in;
 int bands = 64;
 float[] spectrum = new float[bands];
 float w;
@@ -48,17 +47,17 @@ void setup() {
   colorMode(HSB);
 
   textureMode(NORMAL);
-  spout =  new Spout(this);
-  senderName = "Spout Processing";
-  spout.createSender(senderName, width, height);
 
+  in = new AudioIn(this,0);
   file = new SoundFile(this, "skywalker.wav");
  
   // Create an Input stream which is routed into the Amplitude analyzer
   fft = new FFT(this, bands);
   w = width/bands;
-  file.play();
-  fft.input(file);
+  in.start();
+  //file.play();
+  fft.input(in);
+  
 
   // Create an empty ArrayList (will store Ball objects)
   balls = new ArrayList<Ball>();
@@ -226,7 +225,7 @@ void draw()
     //  popMatrix();
     //}
   ////////////////////////////////////////////////////////////////////////////////////////
-  spout.sendTexture();
+
 }
 
 

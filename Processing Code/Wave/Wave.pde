@@ -1,5 +1,5 @@
-float freq = 10;
-float amp = 80;
+float freq = 80;
+float amp =150;
 float w = 20;
 float h = 20;
  
@@ -21,7 +21,7 @@ void draw() {
     fill(220, 255, 255, 255);
     rect(i*20, sin((frameCount+i*3)/freq)*(amp*1), w, h, 50);
      
-    for (int x = 1; x < 16; x++) {
+    for (int x = 1; x < 10; x++) {
       // Top blue
       fill(230-(x*40), 255, 255, 255-(x*32));
       rect(i*20, ((x*20)) + sin((frameCount+i*3)/freq) * (amp*(1-(x*0.13))), w*(1-(x*0.075)), h*(1-(x*0.075)), 25-(x*3.5));

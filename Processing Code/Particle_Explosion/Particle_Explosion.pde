@@ -37,7 +37,7 @@ void mousePressed() {
   for (int i = 0; i < MAX; i ++) {
     plist.add(new Particle(mouseX,mouseY)); // fill ArrayList with particles
 
-    if(plist.size() > 5*MAX) {
+    if(plist.size() > MAX) {
       plist.remove(0);
     }
   }

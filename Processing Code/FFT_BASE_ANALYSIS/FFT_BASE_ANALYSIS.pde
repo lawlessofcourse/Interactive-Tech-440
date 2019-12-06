@@ -1,24 +1,17 @@
 import processing.sound.*;
-import themidibus.*;
+//import themidibus.*;
 
-MidiBus myBus;
-
-
+//MidiBus myBus;
 FFT fft;
 AudioIn in;
 int bands = 64;
 float[] spectrum = new float[bands];
 float w;
 float w2;
-
-
 void setup() {
-
   size(1080, 720);
   //fullScreen();
   colorMode(HSB);
-  MidiBus.list();
-  myBus = new MidiBus(this, 2, 3);
   // Create an Input stream which is routed into the Amplitude analyzer
   fft = new FFT(this, bands);
   in = new AudioIn(this, 0);
@@ -26,10 +19,8 @@ void setup() {
   w2= width/8;
   // start the Audio Input
   in.start();
-
   // patch the AudioIn
   fft.input(in);
-
 }      
 
 void draw() { 
@@ -52,27 +43,26 @@ void draw() {
     stroke(i, 255, 255);
     line(0, 0, x, y);
     popMatrix();
-pushStyle();
+    
+    pushStyle();
     fill(i, 255, 255);
     rect( i*w, height-vert, w-2, vert );
     popStyle();
     pushStyle();
     stroke(255);
-    fill(255,255,255,25);
+    fill(255, 255, 255, 25);
     rect( i*(w*8), 0, w, height);
-       popStyle();
-      
+    popStyle();
+
     //println(average(spectrum[i], 3));
   }
-  for(int i = 0; i < bands/8; i++){
+  for (int i = 0; i < bands/8; i++) {
     pushStyle();
     colorMode(RGB);
-    
+
     fill(255, 255, 255, 25);
     //rect(i*w2, 0, w2, height);
     //rect(w*8, 0, w*8, height);
     popStyle();
   }
-
-
 }

@@ -1,9 +1,9 @@
-import themidibus.*;
+//import themidibus.*;
 
-MidiBus myBus;
+//MidiBus myBus;
 float cc[] = new float[256];
 
-int nums =200;
+int nums =2000;
 float noiseScale = 1000;
 
 Particle[] particles_a = new Particle[nums];
@@ -12,9 +12,9 @@ Particle[] particles_c = new Particle[nums];
 
 void setup(){
   //List available Midi devices
-  MidiBus.list();
+  //MidiBus.list();
   //select the correct midi device
-  myBus = new MidiBus(this, 0, 1);
+  //myBus = new MidiBus(this, 0, 1);
   fullScreen(0);
   background(21, 8, 50);
   for(int i = 0; i < nums; i++){
