@@ -32,6 +32,8 @@ RFont font;
 RGroup grp;
 RPoint[] pnts;
 
+SoundFile file;
+
 FFT fft;
 AudioIn in;
 int bands = 64;
@@ -55,15 +57,22 @@ float[] partX, partY;
 color start, end;
 int bassCount=0;
 void setup() {
+  /*//Use this section if you are using a Mic or routing sound internally
   in = new AudioIn(this, 0);
   fft = new FFT(this, bands);
   w = width/bands;
   in.start();
-
-  fft.input(in);
-  frameRate(60);
-  size(1280, 720); 
-
+  fft.input(in);*/
+  //use this section to play sound file from data folder
+  file = new SoundFile(this, "DoneWithWork.mp3");
+  file.loop();
+  fft = new FFT(this,bands);
+  fft.input(file);
+  
+  frameRate(30);
+  //size(1280, 720); 
+  fullScreen();
+  
   balls = new ArrayList<Ball>();
   prt = new ArrayList<Particle>();
 
@@ -81,6 +90,8 @@ void setup() {
   textW = grp.getWidth();
   textH=grp.getHeight();
   pnts = grp.getPoints();
+  
+  
 }
 
 
@@ -133,7 +144,7 @@ void draw() {
   addR= weight_hi*20;
 
   pushMatrix();
-  translate(width/6, height/2+textH/2);
+  translate(width/4, height/2+textH/2);
   blendMode(SCREEN);
   if (mousePressed && mouseButton == RIGHT) {
     //if (plist.size()>5000) {
